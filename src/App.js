@@ -1,23 +1,43 @@
-import logo from './logo.svg';
+import QuestionButton from './components/QuestionButton';
+import Sentence from './components/Sentence';
+import Words from './components/Words';
+import "./styles/Box.css"
+
 import './App.css';
+import { useState} from 'react'
 
 function App() {
+  const [images,setImages] = useState([])
+  const [id,setId]= useState("")
+  const [index,setIndex] = useState(-1)
+
+//setIsplaced düzeltilmeil
+
+
+
+
+  function getCardData(question,index){
+    setImages(question)
+   
+  }
+
+  function select(id,index){
+    setId(id);
+    setIndex(index);
+
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+          <QuestionButton getCardData={getCardData}/>
+          <Sentence id={id}  images={images} index={index} />
+          <div className="container">
+              {images.map((image,index)=>{
+                return <Words handleClick={()=>select(image.id,index)} key={image.id} src= {image.img_url}/>
+              })}
+          </div>
+          
     </div>
   );
 }
